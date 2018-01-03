@@ -168,7 +168,7 @@
             [self.writer addInput:self.audioInput];
         }
     }
-    
+
     [self.writer startWriting];
     [self.reader startReading];
     [self.writer startSessionAtSourceTime:self.timeRange.start];
@@ -196,7 +196,7 @@
     else {
         videoCompleted = YES;
     }
-    
+
     if (!self.audioOutput) {
         audioCompleted = YES;
     } else {
@@ -232,7 +232,7 @@
                 handled = YES;
                 error = YES;
             }
-            
+
             if (!handled && self.videoOutput == output)
             {
                 // update the video progress
@@ -254,7 +254,7 @@
                     handled = YES;
                 }
             }
-            if (!handled && ![input appendSampleBuffer:sampleBuffer])
+            if (!handled && (self.writer.status != AVAssetWriterStatusWriting || ![input appendSampleBuffer:sampleBuffer]))
             {
                 error = YES;
             }
