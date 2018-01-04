@@ -254,8 +254,12 @@
                     handled = YES;
                 }
             }
-            if (!handled && (self.writer.status != AVAssetWriterStatusWriting || ![input appendSampleBuffer:sampleBuffer]))
-            {
+            @try {
+                if (!handled && (self.writer.status != AVAssetWriterStatusWriting || ![input appendSampleBuffer:sampleBuffer]))
+                {
+                    error = YES;
+                }
+            } @catch (NSException *exception) {
                 error = YES;
             }
             CFRelease(sampleBuffer);
